@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+  	<meta charset="utf-8">
+	<title>DemoApp</title>
+ 	<base href="/">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+ 	<link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+
+  	<div ng-app="myapp" ng-controller="myControl">
+		<h1> My First Expression: {{ fn + " " + ln }} </h1>
+ 	</div>
+
+ 	<script type="text/javascript">
+ 		var name = angular.module("myapp", []);
+ 		name.controller("myControl", function($scope) {
+ 			$scope.fn="Sunny";
+ 			$scope.ln="Todankar";
+ 		});
+ 	</script>
+</body>
+
+</html>
