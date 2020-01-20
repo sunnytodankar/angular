@@ -1,27 +1,79 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
-  	<meta charset="utf-8">
-	<title>DemoApp</title>
- 	<base href="/">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
- 	<link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script> 
+        <meta charset="utf-8">
+        <title>DemoApp</title>
+        <base href="/">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="favicon.ico"> 
+    </head>
 
-<body>
+    <style>
+        input.ng-invalid {
+            background-color:wheat;
+        }
+        input.ng-valid {
+            background-color:lightgreen;
+        }
+    </style>
+    
+    <body>
+        <h2>Registration Form</h2>
+        <form ng-app="myApp" ng-controller="validateCtrl" name="regForm" novalidate> 
+            <label>Name:</label>
+            <input type="text" maxlength="18" placeholder="eg. john doe" name="user" ng-model="user" required>
+            <span style="color:red">
+                <span ng-show="regForm.user.$error.required && regForm.user.$touched">Username is required.</span>
+            </span>
+            <br>
 
-  	<div ng-app="myapp" ng-controller="myControl">
-		<h1> My First Expression: {{ fn + " " + ln }} </h1>
- 	</div>
+            <label>Email:</label>
+            <input type="email" placeholder="johndoe@example.com" name="email" ng-model="email" required>
+            <span style="color:red">
+                <span ng-show="regForm.email.$error.required && regForm.user.$touched">Email is required.</span>
+                <span ng-show="regForm.email.$error.email && regForm.user.$touched">Invalid email address.</span>
+            </span>
+            <br>
 
- 	<script type="text/javascript">
- 		var name = angular.module("myapp", []);
- 		name.controller("myControl", function($scope) {
- 			$scope.fn="Sunny";
- 			$scope.ln="Todankar";
- 		});
- 	</script>
+            <label>Mobile Number:</label>
+            <input type="number" placeholder=" only 10 digits allowed " maxlength="10" minlength="10" name="number" ng-model="number" required>
+            <span style="color: red;"> 
+                <span ng-show="regForm.number.$error.required && regForm.user.$touched" 
+                    style="color: rosybrown;">Contact information is required.</span>
+                <span ng-show="regForm.number.$error.maxlength && regForm.user.$touched">Please provide proper contact details.</span>
+            </span>
+            <br>   
+            
+            <label>Age:</label>
+            <input type="number" placeholder=" 13+" maxlength="3" min="13" max="115" name="age" ng-model="age" required>
+            <span style="color: red;">
+                <span ng-show="regForm.age.$error.required && regForm.age.$dirty">Your age is required.</span>
+                <span ng-show="regForm.age.$error.min" style="color: salmon;">You are too small to register.</span>
+                <span ng-show="regForm.age.$error.maxlength || regForm.age.$error.max">Provide your real age.</span>
+            </span>
+            <br>
+
+            <br>
+            <label> Terms & Conditions </label>
+            <input type="checkbox" ng-model="checkbox" name="checkbox" required>
+            <span style="color: tomato;"> <br>
+                <span ng-show="regForm.checkbox.$error.required">You can continue only if you agree to our policy.</span>
+			</span>
+			<br>
+
+			<label><input type="submit" ng-disabled="regForm.user.$invalid || regForm.email.$invalid || 
+				regForm.number.$invalid || regForm.age.$invalid || regForm.checkbox.$pristine && regForm.checkbox.$invalid">
+            </label>
+        </form>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('validateCtrl', function($scope) {
+        //  $scope.user = 'eg. john doe';
+        //  $scope.email = 'john.doe@example.com';
+        });
+    </script>   
+
 </body>
-
 </html>
